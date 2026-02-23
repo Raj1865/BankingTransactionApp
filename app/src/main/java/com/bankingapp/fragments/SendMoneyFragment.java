@@ -9,11 +9,13 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,18 +35,24 @@ import com.bankingapp.utils.NotificationHelper;
 import com.bankingapp.utils.SessionManager;
 import com.bankingapp.utils.TransactionManager;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 public class SendMoneyFragment extends Fragment {
 
-    private static final int REQ_CAMERA   = 200;
-    private static final int REQ_CAM_PERM = 201;
+    private static final int REQ_CAMERA           = 200;
+    private static final int REQ_CAM_PERM         = 201;
+    private static final int REQ_SPEECH_RECIPIENT = 300;
+    private static final int REQ_MIC_PERM         = 301;
 
     // ── Views ─────────────────────────────────────────────────────────────
     private EditText etRecipientPhone;
     private EditText etAmount;
-    private TextView tvAvailableBalance;
-    private Button   btnSend;
-    private Button   btnSendCancel;
-//    private Button   btnScanToPay;
+    private TextView   tvAvailableBalance;
+    private Button     btnSend;
+    private Button     btnSendCancel;
+    private Button     btnScanToPay;
+    private ImageButton btnMicRecipient;
 
     // ── Helpers ───────────────────────────────────────────────────────────
     private TransactionManager txnManager;
@@ -71,12 +79,18 @@ public class SendMoneyFragment extends Fragment {
         tvAvailableBalance = view.findViewById(R.id.tvAvailableBalance);
         btnSend            = view.findViewById(R.id.btnSend);
         btnSendCancel      = view.findViewById(R.id.btnSendCancel);
+        btnScanToPay       = view.findViewById(R.id.btnScanToPay);
+        btnMicRecipient    = view.findViewById(R.id.btnMicRecipient);
 
-        // ── Scan-to-Pay: only wire up if button exists in the layout ───────
-//        btnScanToPay = view.findViewById(R.id.btnScanToPay);
-//        if (btnScanToPay != null) {
-//            btnScanToPay.setOnClickListener(v -> openCamera());
-//        }
+        // ── Scan-to-Pay with Camera ────────────────────────────────────────
+        if (btnScanToPay != null) {
+            btnScanToPay.setOnClickListener(v -> openCamera());
+        }
+
+        // ── Mic: speech-to-text for recipient phone ───────────────────────
+        if (btnMicRecipient != null) {
+            btnMicRecipient.setOnClickListener(v -> startSpeechForRecipient());
+        }
 
         double balance = db.getBalance(session.getUserId());
         tvAvailableBalance.setText(String.format(
@@ -197,7 +211,7 @@ public class SendMoneyFragment extends Fragment {
     }
 
     // ═════════════════════════════════════════════════════════════════════
-    // SCAN-TO-PAY (Camera Intent) — only called if btnScanToPay exists
+    // SCAN-TO-PAY (Camera Intent) + Mic (Speech-to-text)
     // ═════════════════════════════════════════════════════════════════════
 
     private void openCamera() {
@@ -215,6 +229,29 @@ public class SendMoneyFragment extends Fragment {
         }
     }
 
+    private void startSpeechForRecipient() {
+        if (ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, REQ_MIC_PERM);
+            return;
+        }
+
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                "Speak recipient phone number");
+
+        try {
+            startActivityForResult(intent, REQ_SPEECH_RECIPIENT);
+        } catch (Exception e) {
+            Toast.makeText(requireContext(),
+                    "Speech recognition not available on this device.",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -226,6 +263,17 @@ public class SendMoneyFragment extends Fragment {
                 Toast.makeText(requireContext(),
                         "QR scanned — recipient pre-filled.", Toast.LENGTH_SHORT).show();
             }
+        } else if (requestCode == REQ_SPEECH_RECIPIENT && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                ArrayList<String> results =
+                        data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                if (results != null && !results.isEmpty()) {
+                    String spoken = results.get(0);
+                    etRecipientPhone.setText(spoken.replaceAll("\\s+", ""));
+                    Toast.makeText(requireContext(),
+                            "Filled from mic input.", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 
@@ -235,11 +283,20 @@ public class SendMoneyFragment extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQ_CAM_PERM) {
             if (grantResults.length > 0 &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCamera();
-            else
+            } else {
                 Toast.makeText(requireContext(),
                         "Camera permission denied.", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == REQ_MIC_PERM) {
+            if (grantResults.length > 0 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startSpeechForRecipient();
+            } else {
+                Toast.makeText(requireContext(),
+                        "Microphone permission denied.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

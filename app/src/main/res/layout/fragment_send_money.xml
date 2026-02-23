@@ -21,7 +21,7 @@
             android:textColor="@color/colorPrimary"
             android:layout_marginBottom="20dp" />
 
-        <!-- Recipient Phone -->
+        <!-- Recipient Phone + Mic (speech-to-text) -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,16 +30,33 @@
             android:textSize="14sp"
             android:layout_marginBottom="4dp" />
 
-        <EditText
-            android:id="@+id/etRecipientPhone"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_phone_no"
-            android:inputType="phone"
-            android:maxLines="1"
-            android:maxLength="10"
-            android:padding="10dp"
-            android:layout_marginBottom="16dp" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/etRecipientPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/hint_phone_no"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:maxLength="10"
+                android:padding="10dp" />
+
+            <ImageButton
+                android:id="@+id/btnMicRecipient"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Speak phone number"
+                android:src="@android:drawable/ic_btn_speak_now" />
+
+        </LinearLayout>
 
         <!-- Amount -->
         <TextView
@@ -69,6 +86,17 @@
             android:textColor="@color/colorTextSecondary"
             android:textSize="13sp"
             android:layout_marginBottom="24dp" />
+
+        <!-- Scan-to-Pay (Camera) -->
+        <Button
+            android:id="@+id/btnScanToPay"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Scan with Camera"
+            android:textSize="14sp"
+            android:textColor="@color/colorTextOnPrimary"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_marginBottom="12dp" />
 
         <!-- Send Button -->
         <Button
