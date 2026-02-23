@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Info -->
+    <string name="app_name">Banking Transaction App</string>
+    <string name="app_tagline">Secure. Simple. Smart.</string>
+    <string name="reg_no">23BIT0269</string>
+    <string name="student_name">Raj Kokate</string>
+    <string name="course">BITE409L — Mobile Application Development</string>
+
+    <!-- Login Screen -->
+    <string name="lbl_username">Username</string>
+    <string name="lbl_password">Password</string>
+    <string name="hint_username">Enter your username</string>
+    <string name="hint_password">Enter your password</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_register">Create Account</string>
+    <string name="chk_remember_me">Remember Me</string>
+    <string name="lbl_no_account">Don&#8217;t have an account?</string>
+
+    <!-- Login Errors -->
+    <string name="err_username_empty">Username cannot be empty</string>
+    <string name="err_username_short">Username must be at least 3 characters</string>
+    <string name="err_username_invalid">Only letters, numbers and underscore allowed</string>
+    <string name="err_password_empty">Password cannot be empty</string>
+    <string name="err_password_short">Password must be at least 6 characters</string>
+    <string name="err_login_failed">Invalid username or password</string>
+
+    <!-- Demo hint -->
+    <string name="lbl_demo">Demo: username=demo  password=demo123</string>
+
+    <!-- Registration -->
+    <string name="lbl_full_name">Full Name</string>
+    <string name="hint_full_name">Enter your full name</string>
+    <string name="lbl_phone">Phone Number</string>
+    <string name="hint_phone">Enter 10-digit phone number</string>
+    <string name="btn_create_account">Create Account</string>
+    <string name="err_name_empty">Full name cannot be empty</string>
+    <string name="err_phone_invalid">Enter a valid 10-digit phone number</string>
+    <string name="err_username_taken">Username already exists</string>
+    <string name="err_phone_taken">Phone number already registered</string>
+    <string name="msg_register_success">Account created! You can now login.</string>
+
+    <!-- Dashboard -->
+    <string name="lbl_balance">Account Balance</string>
+    <string name="lbl_account_no">Account No</string>
+    <string name="lbl_send_money">Send Money</string>
+    <string name="lbl_pay_bill">Pay Bill</string>
+    <string name="lbl_history">History</string>
+    <string name="lbl_insights">Insights</string>
+    <string name="lbl_recent_transactions">Recent Transactions</string>
+
+    <!-- Transaction -->
+    <string name="lbl_phone_no">Recipient Phone No.</string>
+    <string name="hint_phone_no">Enter phone number</string>
+    <string name="lbl_amount">Amount (₹)</string>
+    <string name="hint_amount">Enter amount</string>
+    <string name="btn_send">Send</string>
+    <string name="btn_pay">Pay Now</string>
+
+    <!-- Dialogs -->
+    <string name="dlg_confirm_title">Confirm Transfer</string>
+    <string name="dlg_suspicious_title">⚠ Suspicious Transaction Detected</string>
+    <string name="dlg_suspicious_msg">This transaction is unusually large. Are you sure you want to proceed?</string>
+    <string name="dlg_logout_title">Logout</string>
+    <string name="dlg_logout_msg">Are you sure you want to logout?</string>
+    <string name="dlg_yes">Yes</string>
+    <string name="dlg_no">No</string>
+    <string name="dlg_cancel">Cancel</string>
+    <string name="dlg_proceed">Proceed Anyway</string>
+
+    <!-- Misc -->
+    <string name="msg_success">Transaction Successful!</string>
+    <string name="msg_insufficient">Insufficient balance</string>
+    <string name="msg_invalid_amount">Enter a valid amount greater than 0</string>
+    <string name="msg_offline">You are offline. Please check your connection.</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_lock">Lock App</string>
+    <string name="menu_about">About</string>
+
+    <string name="colorSuccess">#2E7D32</string>
+    <!-- Insights Screen -->
+    <string name="lbl_filter_month">Month:</string>
+    <string name="lbl_total_spent">Total Spent</string>
+    <string name="lbl_total_received">Total Received</string>
+
+    <!-- Savings Goals -->
+    <string name="lbl_savings_goals">Savings Goals</string>
+    <string name="lbl_add_goal">Add New Goal</string>
+    <string name="hint_goal_name">e.g. Laptop, Vacation, Emergency Fund</string>
+    <string name="hint_goal_target">Target amount (&#8377;)</string>
+    <string name="btn_add_goal">Add Goal</string>
+    <string name="lbl_no_goals">No goals yet. Add one above!</string>
+
+    <!-- RatingBar -->
+    <string name="lbl_rate_app">How would you rate this app?</string>
+    <string name="lbl_rating_prompt">Tap a star to rate</string>
+
+    <!-- Add inside <resources> in res/values/strings.xml -->
+
+    <!-- TransactionService messages -->
+    <string name="service_processed">processed successfully</string>
+    <string name="service_invalid_amount">Invalid amount. Transaction cancelled.</string>
+    <string name="service_limit_exceeded">Amount exceeds daily limit of ₹1,00,000.</string>
+    <string name="service_suspicious_alert">⚠ Suspicious activity detected! Large transfer flagged.</string>
+
+    <!-- NetworkChangeReceiver messages -->
+    <string name="receiver_offline_warning">You are offline. Transactions may fail.</string>
+    <string name="receiver_online_restored">Back online. Connection restored.</string>
+    <!-- Add inside <resources> in res/values/strings.xml -->
+
+    <!-- Location strings -->
+    <string name="location_prefix">Location:</string>
+    <string name="location_unavailable">Location unavailable</string>
+    <string name="location_granted">Location permission granted</string>
+    <string name="location_denied">Location denied — coordinates will not be stored</string>
+    <string name="location_gps_off">GPS is off. Enable it for accurate location.</string>
+
+    <!-- Date/Time strings -->
+    <string name="placeholder_datetime">Loading date and time…</string>
+    <string name="label_transaction_time">Transaction time:</string>
+    <string name="label_location">Transaction location:</string>
+
+    <!-- Add to res/values/strings.xml -->
+    <string name="menu_settings">Settings</string>
+    <string name="settings_notif_section">Notification Preferences</string>
+    <string name="settings_tx_title">Transaction Alerts</string>
+    <string name="settings_tx_desc">Notify me when money is sent or received</string>
+    <string name="settings_alert_title">Security Alerts</string>
+    <string name="settings_alert_desc">Warn me about suspicious large transfers</string>
+    <string name="settings_bill_title">Bill Payment Alerts</string>
+    <string name="settings_bill_desc">Confirm when a bill is paid successfully</string>
+
+    <!-- Add to res/values/strings.xml -->
+    <string name="perm_location_denied">Location permission denied — transactions saved without GPS.</string>
+    <string name="perm_notif_denied">Notification permission denied — alerts will not appear.</string>
+    <string name="perm_camera_denied">Camera permission denied.</string>
+    <string name="scan_to_pay_success">QR scanned — recipient pre-filled.</string>
+    <string name="no_camera_app">No camera app found on this device.</string>
+
+
+</resources>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    android:fitsSystemWindows="true">
+
+    <!-- ── TOP ACCOUNT CARD ─────────────────────────────────────────── -->
+    <LinearLayout
+        android:id="@+id/cardAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <!-- Row 1: Welcome (left) + Date/Time (right) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="6dp">
+
+            <!-- Left: Welcome + Name -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvWelcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Welcome Back,"
+                    android:textColor="#BBDEFB"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User"
+                    android:textColor="@color/colorTextOnPrimary"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <!-- Right: Date + Time stacked -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="end"/>
+        </LinearLayout>
+
+        <!-- Row 2: Account No -->
+        <TextView
+            android:id="@+id/tvAccountNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A/C No: AC000000"
+            android:textColor="#BBDEFB"
+            android:textSize="12sp"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Row 3: DateTime combined (date + time in one line with icon) -->
+        <TextView
+            android:id="@+id/tvDateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="-- --- ---- | --:-- --"
+            android:textSize="11sp"
+            android:textColor="#BBDEFB"
+            android:drawableStart="@android:drawable/ic_menu_recent_history"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Row 4: Location -->
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Location unavailable"
+            android:textSize="11sp"
+            android:textColor="#90CAF9"
+            android:drawableStart="@android:drawable/ic_menu_mylocation"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Row 5: Balance + Show/Hide toggle -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvBalance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Balance: ₹ ----"
+                android:textColor="@color/colorTextOnPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <Button
+                android:id="@+id/btnToggleBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="Show"
+                android:textSize="11sp"
+                android:textColor="@color/colorPrimary"
+                android:backgroundTint="#FFFFFF"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- ── ACTION BUTTONS ROW ─────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorSurface"
+        android:elevation="4dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+
+        <Button
+            android:id="@+id/btnSendMoney"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Send"
+            android:textSize="11sp"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/colorTextOnPrimary"
+            android:layout_marginEnd="3dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp" />
+
+        <Button
+            android:id="@+id/btnPayBill"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Pay Bill"
+            android:textSize="11sp"
+            android:backgroundTint="@color/colorBill"
+            android:textColor="@color/colorTextOnPrimary"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp" />
+
+        <Button
+            android:id="@+id/btnHistory"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="History"
+            android:textSize="11sp"
+            android:backgroundTint="@color/colorAccent"
+            android:textColor="@color/colorTextOnPrimary"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp" />
+
+        <Button
+            android:id="@+id/btnInsights"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Insights"
+            android:textSize="11sp"
+            android:backgroundTint="@color/colorSuccess"
+            android:textColor="@color/colorTextOnPrimary"
+            android:layout_marginStart="3dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp" />
+
+    </LinearLayout>
+
+    <!-- ── FRAGMENT CONTAINER + DEFAULT CONTENT ───────────────────── -->
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Default: Recent Transactions list -->
+        <LinearLayout
+            android:id="@+id/layoutDefaultContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_recent_transactions"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="@color/colorTextPrimary"
+                android:layout_marginBottom="8dp" />
+
+            <ListView
+                android:id="@+id/listRecentTransactions"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/colorBackground"
+                android:dividerHeight="6dp" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

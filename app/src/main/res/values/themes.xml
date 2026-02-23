@@ -1,0 +1,35 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+        Base application theme — NO action bar.
+        Used by: MainActivity (Splash), LoginActivity, RegisterActivity.
+    -->
+    <style name="Base.Theme.BankingTransactionApp"
+        parent="Theme.Material3.DayNight.NoActionBar">
+    </style>
+
+    <!-- Default app theme (no action bar) -->
+    <style name="Theme.BankingTransactionApp"
+        parent="Base.Theme.BankingTransactionApp" />
+
+    <!--
+        DarkActionBar theme — used by Dashboard, Transaction, Insights, Settings.
+
+        WHY AppCompat and NOT MaterialComponents or Material3:
+        Both Material3 and MaterialComponents override android:alertDialogTheme
+        with their own Material dialog styles. When AlertDialog.Builder(context)
+        is called from a Fragment or Activity using those themes, the dialog
+        either renders incorrectly or silently fails to appear — causing the
+        Send Money confirm dialog to be invisible and the 3-dots overflow menu
+        to not render at all.
+
+        Theme.AppCompat.Light.DarkActionBar is the correct, stable parent when:
+          - You use AlertDialog.Builder (standard dialogs)
+          - You need a reliable window-decor overflow (3-dots) menu
+          - You want consistent back-arrow navigation across all API levels
+    -->
+    <style name="Theme.BankingTransactionApp.DarkActionBar"
+        parent="Theme.AppCompat.Light.DarkActionBar">
+    </style>
+
+</resources>

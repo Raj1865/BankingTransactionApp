@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorBackground">
+
+    <!-- ── FILTER BAR ─────────────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorSurface"
+        android:elevation="4dp"
+        android:padding="12dp">
+
+        <!-- Row 1: From date — To date -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="From:"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:layout_marginEnd="6dp" />
+
+            <Button
+                android:id="@+id/btnFromDate"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:text="Select Date"
+                android:textSize="11sp"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/colorTextOnPrimary"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To:"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:layout_marginEnd="6dp" />
+
+            <Button
+                android:id="@+id/btnToDate"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:text="Select Date"
+                android:textSize="11sp"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/colorTextOnPrimary" />
+
+        </LinearLayout>
+
+        <!-- Row 2: Type filter Spinner + Apply button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type:"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:layout_marginEnd="6dp" />
+
+            <Spinner
+                android:id="@+id/spinnerFilter"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnApplyFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Apply"
+                android:textSize="12sp"
+                android:backgroundTint="@color/colorAccent"
+                android:textColor="@color/colorTextOnPrimary"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+
+            <Button
+                android:id="@+id/btnClearFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Clear"
+                android:textSize="12sp"
+                android:backgroundTint="#9E9E9E"
+                android:textColor="@color/colorTextOnPrimary"
+                android:layout_marginStart="4dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- ── SUMMARY STRIP ─────────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#EBF3FB"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvTotalSent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sent: ₹ 0.00"
+            android:textColor="@color/colorSent"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:gravity="center" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorTextSecondary" />
+
+        <TextView
+            android:id="@+id/tvTotalReceived"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Received: ₹ 0.00"
+            android:textColor="@color/colorReceived"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:gravity="center" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorTextSecondary" />
+
+        <TextView
+            android:id="@+id/tvTxnCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Total: 0"
+            android:textColor="@color/colorTextPrimary"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <!-- ── TRANSACTION LIST ──────────────────────────────────────────── -->
+    <TextView
+        android:id="@+id/tvEmptyList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No transactions found for selected filter."
+        android:gravity="center"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="14sp"
+        android:padding="32dp"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/listTransactions"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@color/colorBackground"
+        android:dividerHeight="6dp"
+        android:padding="8dp" />
+
+</LinearLayout>

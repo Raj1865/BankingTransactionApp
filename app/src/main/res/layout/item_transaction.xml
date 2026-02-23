@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/colorSurface"
+    android:padding="12dp"
+    android:gravity="center_vertical">
+
+    <!-- Type indicator circle -->
+    <TextView
+        android:id="@+id/tvTxnTypeIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:textColor="@color/colorTextOnPrimary"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:text="S"
+        android:background="@color/colorSent"
+        android:layout_marginEnd="12dp" />
+
+    <!-- Description + Date -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTxnDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvTxnDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+    <!-- Amount -->
+    <TextView
+        android:id="@+id/tvTxnAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="- ₹0.00"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorSent" />
+
+</LinearLayout>

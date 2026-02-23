@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--
+        showAsAction="never" is REQUIRED for items to appear in the
+        3-dots overflow menu. "always" or "ifRoom" puts them as toolbar
+        icons instead, which is why the menu appeared empty before.
+    -->
+
+    <item
+        android:id="@+id/action_history"
+        android:title="Transaction History"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_insights"
+        android:title="Insights"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="Settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:title="Logout"
+        app:showAsAction="never" />
+
+</menu>
