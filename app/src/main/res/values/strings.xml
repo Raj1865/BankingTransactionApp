@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Info -->
-    <string name="app_name">Banking Transaction App</string>
+    <string name="app_name">Raj Bank</string>
     <string name="app_tagline">Secure. Simple. Smart.</string>
     <string name="reg_no">23BIT0269</string>
     <string name="student_name">Raj Kokate</string>

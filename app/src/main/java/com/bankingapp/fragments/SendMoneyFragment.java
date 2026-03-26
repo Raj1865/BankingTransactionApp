@@ -34,6 +34,10 @@ import com.bankingapp.utils.LocationHelper;
 import com.bankingapp.utils.NotificationHelper;
 import com.bankingapp.utils.SessionManager;
 import com.bankingapp.utils.TransactionManager;
+import com.google.mlkit.vision.barcode.common.Barcode;
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
+import com.google.mlkit.vision.barcode.BarcodeScanning;
+import com.google.mlkit.vision.common.InputImage;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -258,10 +262,12 @@ public class SendMoneyFragment extends Fragment {
         if (requestCode == REQ_CAMERA && resultCode == Activity.RESULT_OK) {
             if (data != null && data.getExtras() != null) {
                 Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-                // Simulate QR decode — pre-fill recipient field
-                etRecipientPhone.setText("9876543210");
-                Toast.makeText(requireContext(),
-                        "QR scanned — recipient pre-filled.", Toast.LENGTH_SHORT).show();
+                if (thumbnail != null) {
+                    decodeQrFromBitmap(thumbnail);
+                } else {
+                    Toast.makeText(requireContext(),
+                            "Could not get image from camera.", Toast.LENGTH_SHORT).show();
+                }
             }
         } else if (requestCode == REQ_SPEECH_RECIPIENT && resultCode == Activity.RESULT_OK) {
             if (data != null) {
@@ -298,5 +304,50 @@ public class SendMoneyFragment extends Fragment {
                         "Microphone permission denied.", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void decodeQrFromBitmap(Bitmap bitmap) {
+        InputImage image = InputImage.fromBitmap(bitmap, 0);
+
+        BarcodeScannerOptions options =
+                new BarcodeScannerOptions.Builder()
+                        .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
+                        .build();
+
+        BarcodeScanning.getClient(options)
+                .process(image)
+                .addOnSuccessListener(barcodes -> {
+                    if (barcodes == null || barcodes.isEmpty()) {
+                        Toast.makeText(requireContext(),
+                                "No QR code found. Try again.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Take first QR result
+                    Barcode barcode = barcodes.get(0);
+                    String raw = barcode.getRawValue();
+                    if (raw == null || raw.trim().isEmpty()) {
+                        Toast.makeText(requireContext(),
+                                "QR code has no data.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Extract digits as phone number
+                    String digitsOnly = raw.replaceAll("\\D+", "");
+                    if (digitsOnly.length() < 10) {
+                        Toast.makeText(requireContext(),
+                                "QR does not contain a valid phone number.",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Use last 10 digits (typical Indian phone format)
+                    String phone = digitsOnly.substring(digitsOnly.length() - 10);
+                    etRecipientPhone.setText(phone);
+                    Toast.makeText(requireContext(),
+                            "Phone filled from QR.", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> Toast.makeText(requireContext(),
+                        "Failed to read QR: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 }

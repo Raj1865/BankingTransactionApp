@@ -40,6 +40,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+
+    // ML Kit — Barcode / QR scanning
+    implementation("com.google.mlkit:barcode-scanning:17.3.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
