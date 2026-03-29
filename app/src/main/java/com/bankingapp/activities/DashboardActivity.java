@@ -34,8 +34,16 @@ import com.bankingapp.utils.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.bankingapp.adapters.TransactionRecyclerAdapter;
+import android.widget.Button;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import com.bankingapp.adapters.TransactionRecyclerAdapter;
 
 public class DashboardActivity extends AppCompatActivity {
+
 
     private static final int REQ_LOCATION = 101;
     private static final int REQ_NOTIF    = 100;
@@ -45,7 +53,11 @@ public class DashboardActivity extends AppCompatActivity {
     private TextView tvLocation, tvDateTime;
     private Button   btnSendMoney, btnPayBill, btnHistory, btnInsights;
     private Button   btnToggleBalance;
-    private ListView listRecentTransactions;
+    private RecyclerView               recyclerTransactions;
+    private TransactionRecyclerAdapter recyclerAdapter;
+    private LinearLayoutManager        listLayoutManager;
+    private GridLayoutManager          gridLayoutManager;
+    private Button                     btnListView, btnGridView;
     private View     layoutDefaultContent;
 
     // ── State ─────────────────────────────────────────────────────────────
@@ -56,7 +68,6 @@ public class DashboardActivity extends AppCompatActivity {
     private DatabaseHelper     db;
     private SessionManager     session;
     private LocationHelper     locationHelper;
-    private TransactionAdapter adapter;
     private NotificationHelper notifHelper;
 
     @Override
@@ -164,7 +175,27 @@ public class DashboardActivity extends AppCompatActivity {
         btnHistory             = findViewById(R.id.btnHistory);
         btnInsights            = findViewById(R.id.btnInsights);
         btnToggleBalance       = findViewById(R.id.btnToggleBalance);
-        listRecentTransactions = findViewById(R.id.listRecentTransactions);
+        recyclerTransactions = findViewById(R.id.recyclerTransactions);
+        btnListView          = findViewById(R.id.btnListView);
+        btnGridView          = findViewById(R.id.btnGridView);
+
+        listLayoutManager = new LinearLayoutManager(this);
+        gridLayoutManager = new GridLayoutManager(this, 2);  // 2 columns
+
+        recyclerAdapter = new TransactionRecyclerAdapter();
+        recyclerTransactions.setLayoutManager(listLayoutManager);
+        recyclerTransactions.setAdapter(recyclerAdapter);
+
+        recyclerAdapter.setOnItemClickListener(txn ->
+                android.util.Log.d("Dashboard", "Tapped: " + txn.getDescription())
+        );
+
+        btnListView.setOnClickListener(v -> switchToList());
+        btnGridView.setOnClickListener(v -> switchToGrid());
+
+        recyclerAdapter.setOnItemClickListener(txn -> {
+            android.util.Log.d("Dashboard", "Tapped: " + txn.getDescription());
+        });
         layoutDefaultContent   = findViewById(R.id.layoutDefaultContent);
     }
 
@@ -194,15 +225,9 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void loadRecentTransactions() {
-        List<Transaction> recent = db.getRecentTransactions(session.getUserId(), 5);
-        if (adapter == null) {
-            adapter = new TransactionAdapter(this, recent);
-            listRecentTransactions.setAdapter(adapter);
-        } else {
-            adapter.clear();
-            adapter.addAll(recent);
-            adapter.notifyDataSetChanged();
-        }
+        int userId = session.getUserId();
+        List<Transaction> recent = db.getRecentTransactions(userId, 20);
+        recyclerAdapter.submitList(recent);
     }
 
     private void showDefaultContent() {
@@ -319,6 +344,19 @@ public class DashboardActivity extends AppCompatActivity {
                     startActivity(i);
                 })
                 .show();
+    }
+    private void switchToList() {
+        recyclerTransactions.setLayoutManager(listLayoutManager);
+        recyclerAdapter.setViewMode(TransactionRecyclerAdapter.ViewMode.LIST);
+        btnListView.setTextColor(getResources().getColor(R.color.colorPrimary));
+        btnGridView.setTextColor(getResources().getColor(R.color.colorTextSecondary));
+    }
+
+    private void switchToGrid() {
+        recyclerTransactions.setLayoutManager(gridLayoutManager);
+        recyclerAdapter.setViewMode(TransactionRecyclerAdapter.ViewMode.GRID);
+        btnGridView.setTextColor(getResources().getColor(R.color.colorPrimary));
+        btnListView.setTextColor(getResources().getColor(R.color.colorTextSecondary));
     }
 
     @Override

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="12dp"
+    android:layout_margin="6dp"
+    android:background="@color/colorSurface"
+    android:elevation="4dp">
+
+    <!-- Badge circle -->
+    <TextView
+        android:id="@+id/tvGridIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:background="@color/colorPrimary" />
+
+    <!-- Description -->
+    <TextView
+        android:id="@+id/tvGridDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="11sp"
+        android:textColor="@color/colorTextPrimary" />
+
+    <!-- Amount -->
+    <TextView
+        android:id="@+id/tvGridAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorSent" />
+
+    <!-- Date -->
+    <TextView
+        android:id="@+id/tvGridDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:textSize="10sp"
+        android:textColor="@color/colorTextSecondary" />
+
+</LinearLayout>

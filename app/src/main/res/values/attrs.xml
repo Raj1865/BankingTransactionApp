@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TransactionCardView">
+        <attr name="accentWidth"  format="dimension" />
+        <attr name="cornerRadius" format="dimension" />
+        <attr name="showShadow"   format="boolean"   />
+    </declare-styleable>
+</resources>
